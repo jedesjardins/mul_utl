@@ -14,14 +14,9 @@ public:
 		data[(++tail) % N] = element;
 	}
 
-	T* peek()
+	T& peek()
 	{
-		if (tail < head)
-		{
-			return nullptr;
-		}
-
-		return &data[head%N];
+		data[head%N];
 	}
 
 	void pop()
@@ -97,14 +92,14 @@ public:
 				return task;
 			}
 			// failed race against steal operation
-			return T{};
+			return {};
 		}
 		else
 		{
 			// deque was already empty
 			m_bottom = 0;
 			m_top = 0;
-			return T{};
+			return {};
 		}
 	}
 
@@ -122,12 +117,12 @@ public:
 				return task;
 			}
 
-			return T{};
+			return {};
 		}
 		else
 		{
 			// empty queue
-			return T{};
+			return {};
 		}
 	}
 
