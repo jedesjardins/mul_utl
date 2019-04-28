@@ -67,14 +67,14 @@ public:
 		delete[] m_tasks;
 	}
 
-	void Push(T task)
+	void push(T task)
 	{
 		int32_t b = m_bottom;
 		m_tasks[b & (capacity-1)] = task;
 		m_bottom++;
 	}
 
-	T Pop()
+	T pop()
 	{
 		int32_t b = --m_bottom;
 		int32_t t = m_top;
@@ -108,7 +108,7 @@ public:
 		}
 	}
 
-	T Steal()
+	T steal()
 	{
 		int32_t t = m_top;
 		int32_t b = m_bottom;
