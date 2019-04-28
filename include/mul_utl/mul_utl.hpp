@@ -52,11 +52,12 @@ public:
 // steal_queue Implementation
 //
 
+template <typename T>
 class steal_queue
 {
 public:
 	steal_queue(size_t n_capacity)
-	:m_tasks{new TaskId[n_capacity]},
+	:m_tasks{new T[n_capacity]},
 	 capacity{n_capacity}
 	{
 	}
@@ -66,14 +67,14 @@ public:
 		delete[] m_tasks;
 	}
 
-	void Push(TaskId task)
+	void Push(T task)
 	{
 		int32_t b = m_bottom;
 		m_tasks[b & (capacity-1)] = task;
 		m_bottom++;
 	}
 
-	TaskId Pop()
+	T Pop()
 	{
 		int32_t b = --m_bottom;
 		int32_t t = m_top;
@@ -96,18 +97,18 @@ public:
 				return task;
 			}
 			// failed race against steal operation
-			return NULL_TASK;
+			return T{};
 		}
 		else
 		{
 			// deque was already empty
 			m_bottom = 0;
 			m_top = 0;
-			return NULL_TASK;
+			return T{};
 		}
 	}
 
-	TaskId Steal()
+	T Steal()
 	{
 		int32_t t = m_top;
 		int32_t b = m_bottom;
@@ -121,12 +122,12 @@ public:
 				return task;
 			}
 
-			return NULL_TASK;
+			return T{};
 		}
 		else
 		{
 			// empty queue
-			return NULL_TASK;
+			return T{};
 		}
 	}
 
@@ -138,7 +139,7 @@ public:
 public:
 	std::atomic<int32_t> m_top{0};
 	std::atomic<int32_t> m_bottom{0};
-	TaskId* m_tasks{nullptr};
+	T* m_tasks{nullptr};
 	size_t capacity{0};
 };
 
