@@ -16,7 +16,7 @@ public:
 
 	T& peek()
 	{
-		data[head%N];
+		return data[head%N];
 	}
 
 	void pop()
