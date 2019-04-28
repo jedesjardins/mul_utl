@@ -82,7 +82,7 @@ public:
 		if (t <= b)
 		{
 			// non-empty queue
-			TaskId task = m_tasks[b & (capacity-1)];
+			T task = m_tasks[b & (capacity-1)];
 			if (t != b)
 			{
 				// there's still more than one item left in the queue
@@ -115,7 +115,7 @@ public:
 		if (t < b)
 		{
 			// non-empty queue
-			TaskId task = m_tasks[t & (capacity-1)];
+			T task = m_tasks[t & (capacity-1)];
 			// if m_top = t then it is valid to return task, replace m_top with t+1
 			if (std::atomic_compare_exchange_strong(&m_top, &t, t+1))
 			{
