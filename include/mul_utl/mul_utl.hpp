@@ -9,17 +9,17 @@ template <typename T, size_t N>
 class mpsc_s_queue
 {
 public:
-	void push(T const& element)
+	void push_back(T const& element)
 	{
 		data[(++tail) % N] = element;
 	}
 
-	T& peek()
+	T& front()
 	{
 		return data[head%N];
 	}
 
-	void pop()
+	void pop_front()
 	{
 		size_t old_tail = tail;
 		size_t old_head = head;
@@ -62,14 +62,14 @@ public:
 		delete[] m_tasks;
 	}
 
-	void push(T task)
+	void push_front(T task)
 	{
 		int32_t b = m_bottom;
 		m_tasks[b & (capacity-1)] = task;
 		m_bottom++;
 	}
 
-	T pop()
+	T pop_front()
 	{
 		int32_t b = --m_bottom;
 		int32_t t = m_top;
@@ -103,7 +103,7 @@ public:
 		}
 	}
 
-	T steal()
+	T pop_back()
 	{
 		int32_t t = m_top;
 		int32_t b = m_bottom;
