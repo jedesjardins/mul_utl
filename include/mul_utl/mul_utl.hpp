@@ -62,7 +62,7 @@ public:
 		delete[] m_tasks;
 	}
 
-	void push_front(T task)
+	void push_back(T task)
 	{
 		int32_t b = m_bottom;
 		m_tasks[b & (capacity-1)] = task;
