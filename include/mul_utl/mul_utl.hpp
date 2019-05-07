@@ -1,4 +1,6 @@
 
+#ifndef JED_MUL_UTL_HPP
+#define JED_MUL_UTL_HPP
 
 #include <atomic>
 
@@ -139,3 +141,5 @@ public:
 };
 
 } // namespace utl
+
+#endif
